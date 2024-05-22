@@ -16,7 +16,7 @@ export default function Sidebar() {
         <nav className="links">
           <ul>
             <li>
-              <NavLink exact to="/" className="side-links">
+              <NavLink to="/" className="side-links">
                 <img
                   className="side-icon"
                   src={DashBoardIcon}
