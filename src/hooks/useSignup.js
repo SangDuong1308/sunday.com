@@ -1,16 +1,12 @@
-import { useState, useEffect } from "react";
-import {
-  projectAuth,
-  projectFirestore,
-  projectStorage,
-} from "../firebase/config";
+import { useState } from "react";
+import { projectAuth } from "../firebase/config";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useAuthContext } from "./useAuthContext";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 
 export const useSignup = () => {
-  const [isCancelled, setIsCancelled] = useState(false);
+  // const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const { dispatch } = useAuthContext();

@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import { projectAuth, projectFirestore } from "../firebase/config";
+import { useState } from "react";
+import { projectAuth } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 export const useLogin = () => {
-  const [isCancelled, setIsCancelled] = useState(false);
+  // const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const { dispatch } = useAuthContext();

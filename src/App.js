@@ -53,7 +53,7 @@ function App() {
               ></Route>
             </Routes>
           </div>
-          <OnlineUsers />
+          {user && <OnlineUsers />}
         </BrowserRouter>
       )}
     </div>
