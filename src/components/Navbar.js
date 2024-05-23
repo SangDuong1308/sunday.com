@@ -13,21 +13,21 @@ export default function Navbar() {
   return (
     <div className="navbar">
       <ul>
+        <li className="logo">
+          <Link to="/" className="nav-link">
+            <img
+              className="nav-icon"
+              width="36"
+              height="36"
+              src="https://img.icons8.com/badges/36/adventures.png"
+              alt="adventures"
+            />
+            <span>sunday.com</span>
+          </Link>
+        </li>
         {!user && (
           <>
             {" "}
-            <li className="logo">
-              <Link to="/" className="nav-link">
-                <img
-                  className="nav-icon"
-                  width="36"
-                  height="36"
-                  src="https://img.icons8.com/badges/36/adventures.png"
-                  alt="adventures"
-                />
-                <span>sunday.com</span>
-              </Link>
-            </li>
             <li>
               <Link to="/login">Login</Link>
             </li>
