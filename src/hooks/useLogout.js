@@ -27,21 +27,14 @@ export const useLogout = () => {
       dispatch({ type: "LOGOUT" });
 
       // update state
-      if (!isCancelled) {
-        setIsPending(false);
-        setError(null);
-      }
+
+      setIsPending(false);
+      setError(null);
     } catch (err) {
-      if (!isCancelled) {
-        setError(err.message);
-        setIsPending(false);
-      }
+      setError(err.message);
+      setIsPending(false);
     }
   };
-
-  useEffect(() => {
-    return () => setIsCancelled(true);
-  }, []);
 
   return { logout, error, isPending };
 };
