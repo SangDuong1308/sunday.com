@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { timestamp } from "../../firebase/config";
+import { useFirestore } from "../../hooks/useFirestore";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   { value: "maintain", label: "Maintain" },
@@ -15,9 +17,11 @@ const categories = [
 ];
 
 export default function Create() {
+  const { addDocument, response } = useFirestore("projects");
   const { user } = useAuthContext();
   const { documents } = useCollection("users");
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [details, setDetails] = useState("");
@@ -39,7 +43,7 @@ export default function Create() {
     }
   }, [documents]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError(null);
 
@@ -76,7 +80,10 @@ export default function Create() {
       comments: [],
     };
 
-    console.log(project);
+    await addDocument(project);
+    if (!response.error) {
+      navigate("/");
+    }
   };
 
   return (
