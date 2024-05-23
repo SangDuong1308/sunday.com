@@ -5,6 +5,7 @@ import {
   deleteDoc,
   updateDoc,
   serverTimestamp,
+  doc,
 } from "firebase/firestore";
 import { projectFirestore } from "../firebase/config";
 
@@ -62,12 +63,12 @@ export const useFirestore = (collectionName) => {
   };
 
   // add a document
-  const addDocument = async (doc) => {
+  const addDocument = async (docData) => {
     dispatch({ type: "IS_PENDING" });
 
     try {
       const createdAt = serverTimestamp();
-      const addedDocumentRef = await addDoc(ref, { ...doc, createdAt });
+      const addedDocumentRef = await addDoc(ref, { ...docData, createdAt });
       dispatchIfNotCancelled({
         type: "ADDED_DOCUMENT",
         payload: addedDocumentRef.id, // Returning the ID of the added document
@@ -82,7 +83,8 @@ export const useFirestore = (collectionName) => {
     dispatch({ type: "IS_PENDING" });
 
     try {
-      await deleteDoc(ref, id);
+      const docRef = doc(projectFirestore, collectionName, id);
+      await deleteDoc(docRef);
       dispatchIfNotCancelled({ type: "DELETED_DOCUMENT" });
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: "could not delete" });
@@ -94,10 +96,11 @@ export const useFirestore = (collectionName) => {
     dispatch({ type: "IS_PENDING" });
 
     try {
-      await updateDoc(ref.doc(id), updates);
+      const docRef = doc(projectFirestore, collectionName, id);
+      await updateDoc(docRef, updates);
       dispatchIfNotCancelled({ type: "UPDATED_DOCUMENT", payload: updates });
     } catch (error) {
-      dispatchIfNotCancelled({ type: "ERROR", payload: error });
+      dispatchIfNotCancelled({ type: "ERROR", payload: error.message });
     }
   };
 
