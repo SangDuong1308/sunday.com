@@ -4,6 +4,7 @@ import Select from "react-select";
 import React, { useEffect, useState } from "react";
 import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { timestamp } from "../../firebase/config";
 
 const categories = [
   { value: "maintain", label: "Maintain" },
@@ -50,6 +51,32 @@ export default function Create() {
       setFormError("Please assign the project to at least one user");
       return;
     }
+
+    const assignedUsersList = assignedUsers.map((user) => {
+      return {
+        displayName: user.value.displayName,
+        id: user.value.id,
+        photoURL: user.value.photoURL,
+      };
+    });
+
+    const createdBy = {
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      id: user.uid,
+    };
+
+    const project = {
+      name,
+      details,
+      assignedUsersList,
+      createdBy,
+      category: category.value,
+      dueDate: timestamp.fromDate(new Date(dueDate)),
+      comments: [],
+    };
+
+    console.log(project);
   };
 
   return (
