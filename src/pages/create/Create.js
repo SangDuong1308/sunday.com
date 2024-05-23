@@ -1,17 +1,45 @@
 import "./Create.css";
+import Select from "react-select";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useCollection } from "../../hooks/useCollection";
+import { useAuthContext } from "../../hooks/useAuthContext";
+
+const categories = [
+  { value: "maintain", label: "Maintain" },
+  { value: "development", label: "Development" },
+  { value: "design", label: "Design" },
+  { value: "sales", label: "Sales" },
+  { value: "marketing", label: "Marketing" },
+];
 
 export default function Create() {
+  const { user } = useAuthContext();
+  const { documents } = useCollection("users");
+  const [users, setUsers] = useState([]);
+
   const [name, setName] = useState("");
   const [details, setDetails] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [category, setCategory] = useState("");
   const [assignedUsers, setAssignedUsers] = useState([]);
 
+  useEffect(() => {
+    if (documents) {
+      setUsers(
+        documents.map((user) => {
+          return {
+            value: { ...user, id: user.id },
+            label: user.displayName,
+          };
+        })
+      );
+    }
+  }, [documents]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name, details, dueDate);
+    console.log(name, details, dueDate, category, assignedUsers);
   };
 
   return (
@@ -47,9 +75,18 @@ export default function Create() {
         </label>
         <label>
           <span>Project category</span>
+          <Select
+            options={categories}
+            onChange={(option) => setCategory(option)}
+          />
         </label>
         <label>
           <span>Assign to:</span>
+          <Select
+            options={users}
+            isMulti
+            onChange={(option) => setAssignedUsers(option)}
+          />
         </label>
         <button className="btn">Add Project</button>
       </form>
