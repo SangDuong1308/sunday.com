@@ -1,5 +1,5 @@
 import "./Navbar.css";
-import Temple from "../assets/temple.svg";
+// import Temple from "../assets/temple.svg";
 
 import React from "react";
 import { Link } from "react-router-dom";

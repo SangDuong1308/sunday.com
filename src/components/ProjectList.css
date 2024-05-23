@@ -1,0 +1,44 @@
+.project-list {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-gap: 40px;
+}
+
+.project {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 6px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-name {
+  font-size: 0.9em;
+  color: var(--heading-color);
+}
+
+.memeber-assigned {
+  color: var(--text-color);
+  font-size: 0.9em;
+}
+
+.assigned-to {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+.member-list {
+  display: flex;
+  margin: 10px 0;
+}
+
+.member-list .avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.member {
+  margin-right: 10px;
+}
