@@ -1,6 +1,5 @@
 import { useSignup } from "../../hooks/useSignup";
 import "./Signup.css";
-
 import React, { useState } from "react";
 
 export default function Signup() {
@@ -14,6 +13,10 @@ export default function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
     signup(email, password, displayName, thumbnail);
+    // setEmail("");
+    // setPassword("");
+    // setDisplayName("");
+    // setThumbnail(null);
   };
 
   const handleFileChange = (e) => {
@@ -31,7 +34,8 @@ export default function Signup() {
       return;
     }
 
-    if (selected.size > 100000000) {
+    if (selected.size > 10000000) {
+      // corrected the file size limit to 10MB
       setThumbnailError("Selected file must be less than 10MB");
       return;
     }
@@ -73,17 +77,13 @@ export default function Signup() {
       </label>
       <label>
         <span>Profile Thumbnail:</span>
-        <input require type="file" onChange={handleFileChange}></input>
+        <input required type="file" onChange={handleFileChange}></input>
         {thumbnailError && <div className="error">{thumbnailError}</div>}
       </label>
+      {!isPending && <button className="btn">Sign Up</button>}
       {isPending && (
         <button className="btn" disabled>
           Loading
-        </button>
-      )}
-      {!isPending && (
-        <button className="btn" di>
-          Sign Up
         </button>
       )}
       {error && <div className="error">{error}</div>}

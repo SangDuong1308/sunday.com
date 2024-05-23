@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import {
   projectAuth,
-  projectStorage,
   projectFirestore,
+  projectStorage,
 } from "../firebase/config";
-
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useAuthContext } from "./useAuthContext";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
 
 export const useSignup = () => {
   const [isCancelled, setIsCancelled] = useState(false);
@@ -41,33 +41,22 @@ export const useSignup = () => {
       await updateProfile(res.user, { displayName, photoURL: imgUrl });
 
       // create a user document
-      // await projectFirestore.collection("users").doc(res.user.uid).set({
-      //   online: true,
-      //   displayName,
-      //   photoURL: imgUrl,
-      // });
+      await setDoc(doc(getFirestore(), "users", res.user.uid), {
+        online: true,
+        displayName,
+        photoURL: imgUrl,
+      });
 
       // dispatch login action
       dispatch({ type: "LOGIN", payload: res.user });
 
-      // if (!isCancelled) {
-
-      // }
       setIsPending(false);
       setError(null);
     } catch (err) {
-      // if (!isCancelled) {
-
-      // }
       setError(err.message);
-      console.log(err.message);
       setIsPending(false);
     }
   };
-
-  // useEffect(() => {
-  //   return () => setIsCancelled(true);
-  // }, []);
 
   return { signup, error, isPending };
 };
