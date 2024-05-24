@@ -14,14 +14,36 @@ export default function Dashboard() {
     setFilter(newFilter);
   };
 
-  // const projects =
+  const projects = documents
+    ? documents.filter((document) => {
+        switch (filter) {
+          case "all":
+            return true;
+          case "mine":
+            let assignedToMe = false;
+            document.assignedUsersList.forEach((u) => {
+              if (u.id === user.uid) assignedToMe = true;
+            });
+            return assignedToMe;
+          case "maintain":
+          case "development":
+          case "design":
+          case "sales":
+          case "marketing":
+            console.log(document.category, filter);
+            return document.category === filter;
+          default:
+            return true;
+        }
+      })
+    : null;
 
   return (
     <div>
       <h2 className="page-title">Dashboard</h2>
       {error && <p className="error">{error}</p>}
       {documents && <ProjectFilter changeFilter={changeFilter} />}
-      {documents && <ProjectList projects={documents} />}
+      {projects && <ProjectList projects={projects} />}
     </div>
   );
 }
