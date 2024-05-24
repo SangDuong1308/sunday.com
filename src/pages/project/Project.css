@@ -9,6 +9,7 @@
   background-color: #fff;
   padding: 30px;
   border-radius: 4px;
+  margin-bottom: 20px;
 }
 
 .due-date {
@@ -81,4 +82,5 @@
 .comment-content {
   color: var(--text-color);
   font-size: 0.9em;
+  font-weight: 600;
 }
