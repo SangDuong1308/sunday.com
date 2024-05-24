@@ -3,6 +3,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
 import { timestamp } from "../../firebase/config";
 import Avatar from "../../components/Avatar";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 export default function ProjectComment({ project }) {
   const { user } = useAuthContext();
@@ -42,7 +43,14 @@ export default function ProjectComment({ project }) {
                 <Avatar src={comment.photoURL} />
                 <p>{comment.displayName}</p>
               </div>
-              <div className="comment-date">date</div>
+              <div className="comment-date">
+                {/* {comment.createdAt.toDate().toDateString()} */}
+                <p>
+                  {formatDistanceToNow(comment.createdAt.toDate(), {
+                    addSuffix: true,
+                  })}
+                </p>
+              </div>
               <div className="comment-content">{comment.content}</div>
             </li>
           ))}
