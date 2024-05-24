@@ -15,7 +15,9 @@ export default function ProjectList({ projects }) {
           key={project.id}
         >
           <h4 className="project-name">{project.name}</h4>
-          <p>Due by {project.dueDate.toDate().toDateString()}</p>
+          <p className="project-due">
+            Due by {project.dueDate.toDate().toDateString()}
+          </p>
           <div className="assigned-to">
             <p className="memeber-assigned">
               <strong>Assigned to:</strong>

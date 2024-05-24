@@ -20,6 +20,11 @@
   color: var(--heading-color);
 }
 
+.project-due {
+  color: var(--text-color);
+  font-size: 0.9em;
+}
+
 .memeber-assigned {
   color: var(--text-color);
   font-size: 0.9em;
